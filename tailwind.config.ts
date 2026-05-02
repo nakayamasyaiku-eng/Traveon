@@ -13,10 +13,18 @@ const config: Config = {
         accent: "#0A2A66",
         textPrimary: "#111111",
         textSecondary: "#666666",
+        traveon: {
+          50: "#f4f8ff",
+          100: "#e8f0ff",
+          200: "#cddbf0",
+          800: "#173d73",
+          950: "#0A1F3C",
+        },
       },
       boxShadow: {
         glass: "0 8px 24px rgba(0,0,0,0.08)",
         'glass-hover': "0 12px 32px rgba(0,0,0,0.12)",
+        soft: "0 24px 70px rgba(10,31,60,0.10)",
       },
       transitionTimingFunction: {
         apple: "cubic-bezier(0.4, 0, 0.2, 1)",

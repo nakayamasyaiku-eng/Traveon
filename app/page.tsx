@@ -1,83 +1,176 @@
 "use client";
 
-import { ChevronLeft, ChevronRight, CheckCircle2 } from "lucide-react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import Navbar from "../components/Navbar";
+import Link from "next/link";
+import { useEffect, useState, type ElementType } from "react";
+import {
+  Bed,
+  Building2,
+  Droplet,
+  Mail,
+  MessageCircle,
+  PackageCheck,
+  Phone,
+  Settings2,
+  ShowerHead,
+  TrendingUp,
+} from "lucide-react";
+import Navbar, { type Language } from "../components/Navbar";
 
-type Language = "en" | "zh";
+const asset = (path: string) => path;
+
+type ProductStory = {
+  eyebrow: string;
+  title: string;
+  body: string;
+  image: string;
+  alt: string;
+  icon: ElementType;
+  reverse?: boolean;
+};
+
+type IconProps = {
+  size?: number;
+  strokeWidth?: number;
+  className?: string;
+};
+
+function ToiletIcon({ size = 24, strokeWidth = 2, className }: IconProps) {
+  return (
+    <svg
+      aria-hidden="true"
+      className={className}
+      fill="none"
+      height={size}
+      viewBox="0 0 24 24"
+      width={size}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M7 4h10v5.5a4.5 4.5 0 0 1-4.5 4.5H10A3 3 0 0 1 7 11V4Z"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={strokeWidth}
+      />
+      <path
+        d="M6 14h12l-1.2 4.6A2 2 0 0 1 14.9 20H9.1a2 2 0 0 1-1.9-1.4L6 14Z"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={strokeWidth}
+      />
+      <path
+        d="M9 7h6M10 10h4"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeWidth={strokeWidth}
+      />
+    </svg>
+  );
+}
 
 const content = {
   en: {
+    nav: {
+      cta: "Get Started",
+      contact: "Contact Us",
+      business: "For Business",
+    },
     hero: {
-      eyebrow: "Travel Essentials For Your Better Rest",
-      title: "Clean, simple hygiene kits for better rest.",
-      description:
-        "Traveon prepares compact travel hygiene essentials for guests, hostels, and budget accommodation partners.",
-      primaryCta: "Request Business Trial",
-      secondaryCta: "Contact Us",
+      title: "Clean Compact Ready",
+      description: "Everyone deserves to rest freely and live comfortably.",
     },
-    about: {
-      title: "About Us",
-      body:
-        "We focus on small but high-impact travel hygiene products that help guests feel prepared from the moment they arrive. Our kits are designed for shared bathrooms, short stays, student trips, and budget-friendly travel.",
-      points: ["Practical essentials", "Simple guest experience", "Built for travel operators"],
+    intro: {
+      eyebrow: "OUR PRODUCT",
+      productName: "Stay Kit",
+      title: "Everything You Need",
+      highlight: "All in One Kit",
+      body: "Thoughtfully designed essentials for a clean and comfortable journey.",
     },
-    products: {
-      title: "Products",
-      subtitle: "A ready-to-use hygiene kit designed for fast handover and daily travel needs.",
-      perfectFor: "Perfect For",
-      fit: "Hostels, student residences, short-stay apartments, and travelers using shared bathrooms",
-      tags: ["Clean", "Compact", "Ready to use"],
-      items: ["Traveon pocket kit", "Compressed towel", "Shower slippers", "Disposable toilet seat cover"],
-      slides: [
-        {
-          label: "Traveon Pocket Kit",
-          note: "A compact handover package for travel stays.",
-          image: "/images/product/Pocket.webp",
-        },
-        {
-          label: "Compressed Towel",
-          note: "Lightweight, sealed, and easy to carry.",
-          image: "/images/product/CompressedTowel.webp",
-        },
-        {
-          label: "Travel Slippers",
-          note: "Simple protection for hostel showers.",
-          image: "/images/product/Slipper.webp",
-        },
-        {
-          label: "Toilet Seat Cover",
-          note: "Disposable protection for shared bathrooms.",
-          image: "/images/product/ToiletCover.webp",
-        },
-      ],
-    },
-    scenarios: {
-      title: "Application Scenarios",
-      subtitle: "Designed for the exact spaces where travelers want a little more comfort and confidence.",
+    productStories: [
+      {
+        eyebrow: "ALL-IN-ONE KIT",
+        title: "Everything You Need",
+        body: "A compact Traveon handover kit for shared stays, short trips, and practical guest comfort.",
+        image: asset("/images/product/Pocket.webp"),
+        alt: "Traveon stay kit on a hostel bed",
+        icon: PackageCheck,
+      },
+      {
+        eyebrow: "CLEAN COMFORT",
+        title: "Soft travel slippers",
+        body: "Clean comfort for shared showers and quick arrivals.",
+        image: asset("/images/product/Slipper.webp"),
+        alt: "Blue travel slippers outside a bathroom",
+        icon: ShowerHead,
+        reverse: true,
+      },
+      {
+        eyebrow: "LIGHT & READY",
+        title: "Compressed towel",
+        body: "Sealed, portable, and ready in seconds.",
+        image: asset("/images/product/CompressedTowel.webp"),
+        alt: "Compressed towels beside clean white towels",
+        icon: Droplet,
+      },
+      {
+        eyebrow: "SAFE & HYGIENIC",
+        title: "Toilet seat cover",
+        body: "A clean barrier for shared bathrooms and peace of mind.",
+        image: asset("/images/product/ToiletCover.webp"),
+        alt: "Disposable toilet seat cover and box",
+        icon: ToiletIcon,
+        reverse: true,
+      },
+    ] as ProductStory[],
+    spaces: {
+      eyebrow: "DESIGNED FOR SHARED SPACES",
+      title: "where you can use our product for?",
       items: [
         {
-          title: "Hostel reception and guest handover",
-          description: "Keep kits visible at check-in so guests can buy essentials before they need them.",
-          image: "/images/environment/Hall.webp",
+          title: "Hostels",
+          image: asset("/images/environment/Beds.png"),
+          alt: "Hostel bunk beds with privacy curtains",
+          icon: Bed,
         },
         {
-          title: "Shared shower and bathroom areas",
-          description: "Support cleaner, easier routines in the spaces guests care about most.",
-          image: "/images/environment/Shower.webp",
+          title: "Shared Bathrooms",
+          image: asset("/images/environment/Bathroom.png"),
+          alt: "Modern shared bathroom sinks",
+          icon: ShowerHead,
+        },
+        {
+          title: "Common Areas",
+          image: asset("/images/environment/Hall.png"),
+          alt: "Warm hostel lounge and reception",
+          icon: Building2,
         },
       ],
     },
     business: {
-      title: "For Business",
-      subtitle: "Add value for your guests and generate extra income with low operational effort.",
-      cta: "Request Free Trial",
-      steps: [
-        { step: "1", title: "Contact us", desc: "Reach out to our B2B team" },
-        { step: "2", title: "Free placement", desc: "No upfront cost. Easy setup." },
-        { step: "3", title: "Earn per sale", desc: "Keep a margin on every kit sold." },
+      eyebrow: "FOR HOSTELS & HOTELS",
+      title: "A Simple Solution. Real Benefits.",
+      benefits: [
+        {
+          title: "Start with zero cost",
+          body: "No upfront investment. We provide everything.",
+          icon: PackageCheck,
+        },
+        {
+          title: "Easy to set up",
+          body: "Quick placement, minimal effort on your side.",
+          icon: Settings2,
+        },
+        {
+          title: "Earn from every stay",
+          body: "Generate extra income effortlessly.",
+          icon: TrendingUp,
+        },
       ],
+      stepsTitle: "How it works",
+      steps: ["Contact us", "Free product placement", "Earn from every sale"],
+      cta: "Request a Free Trial",
     },
     faq: {
       title: "FAQ",
@@ -100,85 +193,129 @@ const content = {
         },
       ],
     },
+    trust: {
+      title: "Based in Prague. Built for Europe.",
+      body: "We are based in Prague and building a travel essentials business for Europe.",
+      logos: ["PLUS PRAGUE", "THE ROAD HOSTEL", "ONEFAM PRAGUE", "CZECH INN"],
+    },
+    about: {
+      eyebrow: "ABOUT US",
+      lines: [
+        "Clean. Compact. Ready.",
+        "We design simple travel hygiene kitsto enable shared, comfortable, and sustainable living.",
+        "Everyone deserves to rest freely and live comfortably.",
+        "Traveon delivers essential hygiene kitsfor travelers and modern accommodations.",
+        "Ideal for shared bathrooms, short stays, student travel,and budget-friendly trips.",
+        "Simple products.Immediate comfort.",
+      ],
+    },
     contact: {
-      title: "Contact",
-      subtitle: "Tell us what you need and we will get back to you.",
-      nameLabel: "Name:",
-      ownerName: "Sakura",
-      name: "Your Name",
-      message: "How can we help?",
-      submit: "Send Message",
+      title: "Start Your Journey with Traveon",
+      whatsapp: "WhatsApp",
+      email: "Email",
+      phone: "Phone",
     },
   },
   zh: {
+    nav: {
+      cta: "开始使用",
+      contact: "联系我们",
+      business: "商务合作",
+    },
     hero: {
-      eyebrow: "为更好休息准备的旅行必需品",
-      title: "干净、轻便、即取即用的旅行卫生套装。",
-      description: "Traveon 为游客、青旅和经济型住宿合作伙伴提供紧凑实用的旅行卫生用品。",
-      primaryCta: "申请商务试用",
-      secondaryCta: "联系我们",
+      title: "干净 轻便 即刻可用",
+      description: "人人都值得自由休息，舒适生活。",
     },
-    about: {
-      title: "关于我们",
-      body:
-        "我们专注于小而关键的旅行卫生用品，帮助客人在抵达后更安心地休息。套装适用于公共浴室、短租住宿、学生旅行和预算型旅行场景。",
-      points: ["实用必需品", "简单顺畅的客人体验", "为旅行住宿运营方设计"],
+    intro: {
+      eyebrow: "我们的产品",
+      productName: "Stay Kit 旅居套装",
+      title: "旅程所需",
+      highlight: "一套齐备",
+      body: "为干净、舒适的旅程准备的轻便旅行用品。",
     },
-    products: {
-      title: "产品",
-      subtitle: "一套可快速交付、满足日常旅行需求的即用型卫生套装。",
-      perfectFor: "适用场景",
-      fit: "青旅、学生公寓、短租公寓，以及使用公共浴室的旅行游客",
-      tags: ["干净", "轻便", "即取即用"],
-      items: ["Traveon 便携套装", "压缩毛巾", "淋浴拖鞋", "一次性马桶垫"],
-      slides: [
-        {
-          label: "Traveon 便携套装",
-          note: "适合住宿交付场景的紧凑包装。",
-          image: "/images/product/Pocket.webp",
-        },
-        {
-          label: "压缩毛巾",
-          note: "轻便密封，便于携带和交付。",
-          image: "/images/product/CompressedTowel.webp",
-        },
-        {
-          label: "旅行拖鞋",
-          note: "为青旅淋浴场景提供基础防护。",
-          image: "/images/product/Slipper.webp",
-        },
-        {
-          label: "一次性马桶垫",
-          note: "为公共卫生间提供一次性防护。",
-          image: "/images/product/ToiletCover.webp",
-        },
-      ],
-    },
-    scenarios: {
-      title: "应用场景",
-      subtitle: "围绕旅行者最需要安心感的住宿空间设计。",
+    productStories: [
+      {
+        eyebrow: "一套齐备",
+        title: "旅程所需",
+        body: "适合公共住宿、短途停留和客人入住交接的紧凑旅行卫生套装。",
+        image: asset("/images/product/Pocket.webp"),
+        alt: "Traveon 旅行套装放在青旅床铺上",
+        icon: PackageCheck,
+      },
+      {
+        eyebrow: "洁净舒适",
+        title: "轻便旅行拖鞋",
+        body: "适合公共浴室、淋浴和快速入住的洁净舒适体验。",
+        image: asset("/images/product/Slipper.webp"),
+        alt: "蓝色旅行拖鞋放在浴室门口",
+        icon: ShowerHead,
+        reverse: true,
+      },
+      {
+        eyebrow: "轻便即用",
+        title: "压缩毛巾",
+        body: "独立密封，轻便易带，遇水即可展开。",
+        image: asset("/images/product/CompressedTowel.webp"),
+        alt: "压缩毛巾和白色毛巾摆放在洗手台",
+        icon: Droplet,
+      },
+      {
+        eyebrow: "安心卫生",
+        title: "一次性马桶垫",
+        body: "为公共卫浴提供安心洁净的隔离保护。",
+        image: asset("/images/product/ToiletCover.webp"),
+        alt: "一次性马桶垫和包装盒",
+        icon: ToiletIcon,
+        reverse: true,
+      },
+    ] as ProductStory[],
+    spaces: {
+      eyebrow: "专为共享空间设计",
+      title: "我们的产品适用于哪些场景？",
       items: [
         {
-          title: "青旅前台与客人交付",
-          description: "在入住环节展示并交付套装，让客人在真正需要前就准备好卫生用品。",
-          image: "/images/environment/Hall.webp",
+          title: "青旅",
+          image: asset("/images/environment/Beds.png"),
+          alt: "带隐私帘的青旅床铺",
+          icon: Bed,
         },
         {
-          title: "公共淋浴与卫生间区域",
-          description: "帮助客人在最关注的公共空间里获得更干净、更轻松的使用体验。",
-          image: "/images/environment/Shower.webp",
+          title: "公共浴室",
+          image: asset("/images/environment/Bathroom.png"),
+          alt: "现代公共浴室洗手台",
+          icon: ShowerHead,
+        },
+        {
+          title: "公共区域",
+          image: asset("/images/environment/Hall.png"),
+          alt: "温暖的青旅大厅和前台",
+          icon: Building2,
         },
       ],
     },
     business: {
-      title: "商务合作",
-      subtitle: "以较低运营成本为客人增加便利，同时为住宿方创造额外收益。",
-      cta: "申请免费试用",
-      steps: [
-        { step: "1", title: "联系我们", desc: "联系 Traveon 商务团队" },
-        { step: "2", title: "免费铺货", desc: "无需前期费用，设置简单" },
-        { step: "3", title: "按销售收益", desc: "每售出一套均可获得利润空间" },
+      eyebrow: "面向青旅与酒店",
+      title: "简单合作，真实收益",
+      benefits: [
+        {
+          title: "零成本开始",
+          body: "无需前期投入，我们提供完整产品。",
+          icon: PackageCheck,
+        },
+        {
+          title: "设置简单",
+          body: "快速摆放，减少您的运营负担。",
+          icon: Settings2,
+        },
+        {
+          title: "每次住宿都创造收益",
+          body: "轻松获得额外收入。",
+          icon: TrendingUp,
+        },
       ],
+      stepsTitle: "合作流程",
+      steps: ["联系我们", "免费产品摆放", "从每次销售中获得收益"],
+      cta: "申请商务试用",
     },
     faq: {
       title: "常见问题",
@@ -201,290 +338,332 @@ const content = {
         },
       ],
     },
+    trust: {
+      title: "立足布拉格，面向欧洲旅行。",
+      body: "我们立足布拉格，做面向欧洲的旅行生意。",
+      logos: ["PLUS 布拉格", "THE ROAD 青旅", "ONEFAM 布拉格", "CZECH INN"],
+    },
+    about: {
+      eyebrow: "关于我们",
+      lines: [
+        "通过干净、轻便、即取即用的旅行卫生套装",
+        "搭建公共、舒适、可持续的居住空间关系",
+        "我们相信，人人都拥有 自由而舒适地休息并享受生活的权利。",
+        "Traveon 为游客、青旅和经济型住宿合作伙伴提供紧凑实用的旅行卫生用品。",
+        "我们专注于小而关键的旅行卫生用品，帮助客人在抵达后更安心地休息。套装适用于公共浴室、短租住宿、学生旅行和预算型旅行场景。",
+        "简单的产品",
+        "即刻的舒适",
+      ],
+    },
     contact: {
-      title: "联系我们",
-      subtitle: "告诉我们您的需求，我们会尽快回复。",
-      nameLabel: "Name:",
-      ownerName: "Sakura",
-      name: "您的姓名",
-      message: "我们可以如何帮助您？",
-      submit: "发送消息",
+      title: "开启你的 Traveon 旅程",
+      whatsapp: "WhatsApp",
+      email: "邮箱",
+      phone: "电话",
     },
   },
 };
 
+const contact = {
+  phone: "+420 704 882 703",
+  email: "Sakura956904363@outlook.com",
+};
+
 export default function Home() {
   const [language, setLanguage] = useState<Language>("en");
-  const [activeSlide, setActiveSlide] = useState(0);
-  const t = content[language];
-
-  useEffect(() => {
-    const timer = window.setInterval(() => {
-      setActiveSlide((current) => (current + 1) % t.products.slides.length);
-    }, 4200);
-
-    return () => window.clearInterval(timer);
-  }, [t.products.slides.length]);
-
-  const moveSlide = (direction: number) => {
-    setActiveSlide((current) => {
-      const slideCount = t.products.slides.length;
-      return (current + direction + slideCount) % slideCount;
-    });
+  const handleLanguageChange = (nextLanguage: Language) => {
+    setLanguage(nextLanguage);
+    if (typeof window !== "undefined") {
+      window.localStorage.setItem("traveon-language", nextLanguage);
+      const url = new URL(window.location.href);
+      url.searchParams.set("lang", nextLanguage);
+      window.history.replaceState(null, "", url.toString());
+    }
   };
 
-  return (
-    <main className="relative min-h-screen overflow-hidden bg-gradient-to-b from-white via-sky-50/50 to-white">
-      <Navbar language={language} onLanguageChange={setLanguage} />
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const urlLanguage = params.get("lang");
+    const storedLanguage = window.localStorage.getItem("traveon-language");
+    const nextLanguage = urlLanguage === "zh" || urlLanguage === "en" ? urlLanguage : storedLanguage;
 
-      <section className="relative min-h-[680px] bg-white pt-28">
-        <div className="relative z-10 max-w-6xl mx-auto px-5 md:px-6 pt-24 pb-24 text-center">
-          <img
-            src="/images/hero/Traveon.svg"
-            alt="Traveon"
-            className="mx-auto mb-6 h-auto w-[280px] max-w-full sm:w-[420px] md:w-[560px]"
+    if (nextLanguage === "zh" || nextLanguage === "en") {
+      setLanguage(nextLanguage);
+    }
+  }, []);
+
+  const t = content[language as Language];
+
+  return (
+    <main className="min-h-screen overflow-x-hidden bg-white text-traveon-950">
+      <Navbar language={language} onLanguageChange={handleLanguageChange} />
+
+      <section className="brand-landing flex min-h-screen items-center bg-white px-0 pb-28 pt-20">
+        <div className="mx-auto flex w-full max-w-6xl flex-col items-center px-6 text-center">
+          <Image
+            src={asset("/images/hero/Traveon.svg")}
+            alt="Traveon Travel Essentials"
+            width={920}
+            height={410}
+            priority
+            className="brand-showcase-logo h-auto w-full max-w-[760px]"
           />
-          <p className="text-sm md:text-base font-bold uppercase tracking-[0.18em] text-accent mb-10">
-            {t.hero.eyebrow}
+          <p className="mt-10 text-lg font-black tracking-normal text-traveon-950 md:text-2xl">
+            {t.hero.title}
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="#business"
-              className="px-8 py-4 bg-accent text-white rounded-full font-medium shadow-glass hover:shadow-glass-hover hover:scale-[1.02] transition-all duration-200 ease-apple"
-            >
-              {t.hero.primaryCta}
-            </a>
-            <a
-              href="#contact"
-              className="px-8 py-4 bg-white text-textPrimary border border-white/70 rounded-full font-medium shadow-glass hover:shadow-glass-hover hover:scale-[1.02] transition-all duration-200 ease-apple"
-            >
-              {t.hero.secondaryCta}
-            </a>
+          <p className="mt-4 max-w-2xl text-base font-semibold leading-relaxed text-traveon-800 md:text-lg">
+            {t.hero.description}
+          </p>
+          <div className="mt-7 flex flex-wrap justify-center gap-5">
+            <Link href="#products" className="btn-secondary">
+              {t.nav.cta}
+            </Link>
+            <Link href="#business" className="btn-primary">
+              {t.business.cta}
+            </Link>
+            <Link href="#contact" className="btn-secondary">
+              {t.nav.contact}
+            </Link>
           </div>
         </div>
       </section>
 
-      <div className="relative z-10 max-w-6xl mx-auto px-5 md:px-6 pb-24">
-        <section id="about" className="scroll-mt-28 py-20">
-          <div className="relative overflow-hidden rounded-lg px-6 py-12 md:px-10 md:py-16 text-white">
+      <section
+        id="hero"
+        className="hero-section relative min-h-[650px] overflow-hidden scroll-mt-24 md:min-h-[760px]"
+      >
+        <Image
+          src={asset("/images/hero/Hero-upscale-1.5x.webp")}
+          alt="Traveon travel essentials on a bed by an airplane window"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+        />
+      </section>
+
+      <section id="products" className="section-shell scroll-mt-24 bg-white py-20 md:py-28">
+        <div className="mx-auto grid max-w-6xl items-center gap-12 px-6 md:grid-cols-[1.32fr_0.68fr]">
+          <div className="relative overflow-hidden rounded-[28px] shadow-soft">
             <Image
-              src="/images/hero/Hero-upscale-1.5x.webp"
-              alt="Airplane trail in a blue sunset sky"
-              fill
-              sizes="(min-width: 1024px) 1152px, 100vw"
-              className="object-cover"
+              src={asset("/images/product/Pocket.webp")}
+              alt="Complete Traveon stay kit with slippers towel and toilet seat cover"
+              width={1148}
+              height={646}
+              className="h-full min-h-[380px] w-full object-cover"
             />
-            <div className="absolute inset-0 bg-accent/65" />
-            <div className="relative grid md:grid-cols-[0.8fr_1.2fr] gap-10 items-start">
-              <h2 className="text-3xl font-bold">{t.about.title}</h2>
-              <div>
-                <h3 className="text-3xl md:text-5xl font-bold mb-6">{t.hero.title}</h3>
-                <p className="text-lg md:text-xl leading-8 text-white/90 mb-6">{t.hero.description}</p>
-                <p className="text-lg leading-8 text-white/85 mb-8">{t.about.body}</p>
-                <div className="grid sm:grid-cols-3 gap-3">
-                  {t.about.points.map((point) => (
-                    <div key={point} className="flex items-center gap-2 rounded-lg border border-white/20 bg-white/90 px-4 py-3 shadow-sm">
-                      <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0" />
-                      <span className="text-sm font-semibold text-textPrimary">{point}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
           </div>
-        </section>
-
-        <section id="products" className="scroll-mt-28 py-20">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-textPrimary mb-4">{t.products.title}</h2>
-            <p className="text-textSecondary max-w-2xl mx-auto">{t.products.subtitle}</p>
+          <div>
+            <p className="eyebrow">{t.intro.eyebrow}</p>
+            <p className="mt-3 text-3xl font-black leading-tight text-traveon-950 md:text-4xl">
+              {t.intro.productName}
+            </p>
+            <p className="mt-8 whitespace-nowrap text-[2.65rem] font-black leading-none text-blue-600 md:text-[3rem] lg:text-[3.35rem]">
+              {t.intro.highlight}
+            </p>
+            <h2 className="mt-5 whitespace-nowrap text-[2.15rem] font-black leading-tight text-traveon-950 md:text-[2.45rem] lg:text-[2.75rem]">
+              {t.intro.title}
+            </h2>
+            <p className="mt-6 max-w-md text-lg leading-relaxed text-slate-600 md:text-xl">
+              {t.intro.body}
+            </p>
           </div>
+        </div>
+      </section>
 
-          <div className="max-w-5xl mx-auto glass-card p-5 md:p-8">
-            <div className="grid md:grid-cols-2 gap-10 items-center">
-              <div className="relative overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-inner">
-                <div
-                  className="flex transition-transform duration-700 ease-apple will-change-transform"
-                  style={{ transform: `translateX(-${activeSlide * 100}%)` }}
-                >
-                  {t.products.slides.map((slide, index) => (
-                    <div key={slide.label} className="min-w-full">
-                      <div className="relative aspect-[4/3] overflow-hidden">
-                        <Image
-                          src={slide.image}
-                          alt={slide.label}
-                          fill
-                          sizes="(min-width: 768px) 480px, 90vw"
-                          className="object-cover"
-                        />
-                        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent p-6 text-white">
-                          <div className="text-xs font-semibold text-white/70">0{index + 1}</div>
-                          <h3 className="text-2xl font-bold">{slide.label}</h3>
-                          <p className="mt-2 text-sm text-white/85">{slide.note}</p>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
+      <div className="mx-auto max-w-6xl px-6">
+        {t.productStories
+          .filter((story) => story.eyebrow !== "ALL-IN-ONE KIT")
+          .map((story, index) => {
+            const Icon = story.icon;
+            return (
+              <section
+                key={story.title}
+                className="product-band"
+              >
+                <div className="product-copy">
+                  <div className="icon-badge">
+                    <Icon size={30} strokeWidth={2.1} />
+                  </div>
+                  <p className="eyebrow mt-6">{story.eyebrow}</p>
+                  <h3>{story.title}</h3>
+                  <p>{story.body}</p>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => moveSlide(-1)}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 grid h-10 w-10 place-items-center rounded-full bg-white/90 text-accent shadow-glass hover:scale-105 transition-transform"
-                  aria-label="Previous product image"
-                >
-                  <ChevronLeft className="h-5 w-5" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => moveSlide(1)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 grid h-10 w-10 place-items-center rounded-full bg-white/90 text-accent shadow-glass hover:scale-105 transition-transform"
-                  aria-label="Next product image"
-                >
-                  <ChevronRight className="h-5 w-5" />
-                </button>
-                <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2">
-                  {t.products.slides.map((slide, index) => (
-                    <button
-                      key={slide.label}
-                      type="button"
-                      onClick={() => setActiveSlide(index)}
-                      className={`h-2 rounded-full transition-all ${activeSlide === index ? "w-8 bg-white" : "w-2 bg-white/50"}`}
-                      aria-label={`Go to ${slide.label}`}
+                <div className="product-image">
+                  <Image
+                    src={story.image}
+                    alt={story.alt}
+                    width={1120}
+                    height={630}
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+              </section>
+            );
+          })}
+      </div>
+
+      <section id="use-cases" className="section-shell scroll-mt-24 bg-white py-20 md:py-24">
+        <div className="mx-auto max-w-6xl px-6 text-center">
+          <p className="eyebrow">{t.spaces.eyebrow}</p>
+          <h2 className="mt-3 text-4xl font-black leading-tight md:text-5xl">{t.spaces.title}</h2>
+          <div className="mt-10 grid gap-7 md:grid-cols-3">
+            {t.spaces.items.map((item) => {
+              const Icon = item.icon;
+              return (
+                <article key={item.title} className="space-card">
+                  <div className="overflow-hidden rounded-[18px]">
+                    <Image
+                      src={item.image}
+                      alt={item.alt}
+                      width={640}
+                      height={360}
+                      className="h-48 w-full object-cover"
                     />
-                  ))}
-                </div>
-              </div>
+                  </div>
+                  <h3 className="mt-5 flex items-center justify-center gap-3 text-xl font-black">
+                    <Icon size={24} className="text-blue-600" /> {item.title}
+                  </h3>
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
 
-              <div>
-                <ul className="space-y-4 mb-8">
-                  {t.products.items.map((item) => (
-                    <li key={item} className="flex items-center gap-3">
-                      <span className="w-2 h-2 rounded-full bg-primary" />
-                      <span className="text-textPrimary font-medium">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-                <div className="mb-6">
-                  <h4 className="text-sm font-semibold text-textSecondary uppercase tracking-wider mb-2">{t.products.perfectFor}</h4>
-                  <p className="text-textPrimary leading-7">{t.products.fit}</p>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {t.products.tags.map((tag) => (
-                    <span key={tag} className="px-3 py-1 bg-blue-50 text-accent text-sm rounded-full font-medium">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
+      <section id="business" className="scroll-mt-24 bg-blue-50/70 py-20 md:py-24">
+        <div className="mx-auto grid max-w-6xl gap-12 px-6 md:grid-cols-[1.2fr_0.8fr]">
+          <div>
+            <p className="eyebrow">{t.business.eyebrow}</p>
+            <h2 className="mt-3 max-w-md text-4xl font-black leading-tight md:text-5xl">
+              {t.business.title}
+            </h2>
+            <div className="mt-12 grid gap-8 md:grid-cols-3">
+              {t.business.benefits.map((benefit) => {
+                const Icon = benefit.icon;
+                return (
+                  <article key={benefit.title}>
+                    <div className="icon-badge">
+                      <Icon size={30} />
+                    </div>
+                    <h3 className="mt-5 text-xl font-black">{benefit.title}</h3>
+                    <p className="mt-2 leading-relaxed text-slate-600">{benefit.body}</p>
+                  </article>
+                );
+              })}
             </div>
           </div>
-        </section>
-
-        <section className="py-20 border-y border-gray-100">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-textPrimary mb-4">{t.scenarios.title}</h2>
-            <p className="text-textSecondary max-w-2xl mx-auto">{t.scenarios.subtitle}</p>
+          <div className="rounded-[24px] bg-white p-8 shadow-soft">
+            <h3 className="text-xl font-black">{t.business.stepsTitle}</h3>
+            <div className="mt-7 space-y-5">
+              {t.business.steps.map((step, index) => (
+                <div key={step} className="flex items-center gap-4">
+                  <span className="flex h-8 w-8 items-center justify-center rounded-full border border-traveon-200 text-sm font-black">
+                    {index + 1}
+                  </span>
+                  <p className="font-semibold text-slate-700">{step}</p>
+                </div>
+              ))}
+            </div>
+            <Link href="#contact" className="btn-primary mt-8 w-full justify-center">
+              {t.business.cta}
+            </Link>
           </div>
-          <div className="grid md:grid-cols-2 gap-6">
-            {t.scenarios.items.map((item) => (
-              <article key={item.title} className="overflow-hidden rounded-lg bg-white shadow-glass">
-                <div className="relative aspect-[16/10]">
-                  <Image src={item.image} alt={item.title} fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
-                </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-textPrimary mb-2">{item.title}</h3>
-                  <p className="text-sm leading-6 text-textSecondary">{item.description}</p>
-                </div>
+        </div>
+      </section>
+
+      <section id="faq" className="section-shell scroll-mt-24 bg-white py-20 md:py-24">
+        <div className="mx-auto max-w-5xl px-6">
+          <h2 className="text-center text-4xl font-black leading-tight md:text-5xl">{t.faq.title}</h2>
+          <div className="mt-12 space-y-5">
+            {t.faq.items.map((item) => (
+              <article key={item.q} className="rounded-[24px] bg-white p-8 shadow-soft md:p-10">
+                <h3 className="text-xl font-black text-traveon-950 md:text-2xl">{item.q}</h3>
+                <p className="mt-4 text-lg leading-relaxed text-slate-600">{item.a}</p>
               </article>
             ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section id="business" className="scroll-mt-28 py-24">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-accent mb-4">{t.business.title}</h2>
-            <p className="text-textSecondary max-w-2xl mx-auto">{t.business.subtitle}</p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto mb-16">
-            {t.business.steps.map((item) => (
-              <div key={item.step} className="glass-card p-8 text-center relative">
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 bg-accent text-white rounded-full flex items-center justify-center font-bold text-sm">
-                  {item.step}
-                </div>
-                <h3 className="text-xl font-bold text-textPrimary mt-4 mb-2">{item.title}</h3>
-                <p className="text-textSecondary text-sm">{item.desc}</p>
-              </div>
+      <section className="bg-white py-16">
+        <div className="mx-auto max-w-6xl px-6 text-center">
+          <h2 className="text-4xl font-black">{t.trust.title}</h2>
+          <p className="mt-3 text-lg text-slate-600">{t.trust.body}</p>
+          <div className="mt-10 grid gap-8 text-xl font-black tracking-[0.22em] text-slate-400 md:grid-cols-4">
+            {t.trust.logos.map((logo) => (
+              <span key={logo}>{logo}</span>
             ))}
           </div>
+        </div>
+      </section>
 
-          <div className="text-center">
-            <a
-              href="#contact"
-              className="inline-flex px-8 py-4 bg-primary text-white rounded-full font-medium shadow-glass hover:shadow-glass-hover hover:scale-[1.02] transition-all duration-200 ease-apple"
-            >
-              {t.business.cta}
+      <section id="about" className="about-section relative scroll-mt-24 overflow-hidden py-24 md:py-32">
+        <Image
+          src={asset("/images/hero/Bottom.webp")}
+          alt="Airplane trail in a blue sky"
+          fill
+          sizes="100vw"
+          className="object-cover opacity-35"
+        />
+        <div className="absolute inset-0 bg-traveon-950/75" />
+        <div className="relative mx-auto max-w-6xl px-6">
+          <p className="about-eyebrow">{t.about.eyebrow}</p>
+          <div className="about-copy mt-10 max-w-5xl space-y-5 text-left">
+            {t.about.lines.map((line, index) => (
+              line === "Simple products.Immediate comfort." ? (
+                <div key={line} className="space-y-1">
+                  <p>Simple products.</p>
+                  <p>Immediate comfort.</p>
+                </div>
+              ) : (
+                <p key={line} className={index === 0 ? "whitespace-nowrap" : ""}>
+                  {line}
+                </p>
+              )
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" className="contact-section scroll-mt-24 py-14">
+        <div className="mx-auto grid max-w-6xl gap-10 px-6 md:grid-cols-[0.92fr_0.72fr] md:items-center md:justify-between">
+          <div>
+            <h2 className="contact-title whitespace-nowrap">{t.contact.title}</h2>
+            <div className="mt-7 flex flex-wrap gap-4">
+              <Link href="#products" className="btn-light">
+                {t.nav.cta}
+              </Link>
+              <a href={`mailto:${contact.email}`} className="btn-dark-outline">
+                {t.nav.contact}
+              </a>
+            </div>
+          </div>
+          <div className="grid gap-5">
+            <a href={`https://wa.me/${contact.phone.replace(/\D/g, "")}`} className="contact-link">
+              <MessageCircle size={28} />
+              <span>
+                <strong>{t.contact.whatsapp}</strong>
+                {contact.phone}
+              </span>
+            </a>
+            <a href={`tel:${contact.phone.replace(/\s/g, "")}`} className="contact-link">
+              <Phone size={28} />
+              <span>
+                <strong>{t.contact.phone}</strong>
+                {contact.phone}
+              </span>
+            </a>
+            <a href={`mailto:${contact.email}`} className="contact-link">
+              <Mail size={28} />
+              <span>
+                <strong>{t.contact.email}</strong>
+                {contact.email}
+              </span>
             </a>
           </div>
-        </section>
-
-        <section id="faq" className="scroll-mt-28 py-20 max-w-3xl mx-auto">
-          <h2 className="text-3xl font-bold text-textPrimary text-center mb-12">{t.faq.title}</h2>
-          <div className="space-y-4">
-            {t.faq.items.map((faq) => (
-              <div key={faq.q} className="glass-card p-6 text-left">
-                <h4 className="font-bold text-textPrimary mb-2">{faq.q}</h4>
-                <p className="text-textSecondary text-sm leading-6">{faq.a}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section id="contact" className="scroll-mt-28 py-24">
-          <div className="max-w-4xl mx-auto glass-card p-8 md:p-12 flex flex-col md:flex-row gap-12">
-            <div className="flex-1">
-              <h2 className="text-3xl font-bold text-textPrimary mb-3">{t.contact.title}</h2>
-              <p className="text-textSecondary mb-8">{t.contact.subtitle}</p>
-              <div className="space-y-4">
-                <div className="flex flex-wrap items-center gap-3 text-textPrimary">
-                  <span className="font-bold">{t.contact.nameLabel}</span>
-                  <span>{t.contact.ownerName}</span>
-                </div>
-                <div className="flex flex-wrap items-center gap-3 text-textPrimary">
-                  <span className="font-bold">WhatsApp:</span>
-                  <a href="https://wa.me/420704882703" className="hover:text-primary transition-colors">
-                    +420 704 882 703
-                  </a>
-                </div>
-                <div className="flex flex-wrap items-center gap-3 text-textPrimary">
-                  <span className="font-bold">Email:</span>
-                  <a href="mailto:Sakura956904363@outlook.com" className="hover:text-primary transition-colors break-all">
-                    Sakura956904363@outlook.com
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div className="flex-1">
-              <form className="space-y-4">
-                <input
-                  type="text"
-                  className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white/60 focus:outline-none focus:border-primary transition-colors"
-                  placeholder={t.contact.name}
-                />
-                <textarea
-                  rows={4}
-                  className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white/60 focus:outline-none focus:border-primary transition-colors resize-none"
-                  placeholder={t.contact.message}
-                />
-                <button type="submit" className="w-full py-3 bg-textPrimary text-white rounded-xl font-medium hover:bg-gray-800 transition-colors">
-                  {t.contact.submit}
-                </button>
-              </form>
-            </div>
-          </div>
-        </section>
-      </div>
+        </div>
+      </section>
     </main>
   );
 }
