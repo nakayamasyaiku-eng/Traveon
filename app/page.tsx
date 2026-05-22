@@ -6,33 +6,52 @@ import { useEffect, useState, type ElementType } from "react";
 import {
   Bed,
   Building2,
+  CheckCircle2,
+  ChevronDown,
   Droplet,
+  GraduationCap,
+  Hotel,
   Mail,
   MessageCircle,
   PackageCheck,
   Phone,
   Settings2,
   ShowerHead,
+  Sparkles,
   TrendingUp,
+  UserRound,
 } from "lucide-react";
+import LogoIntro from "../components/LogoIntro";
 import Navbar, { type Language } from "../components/Navbar";
 
 const asset = (path: string) => path;
-
-type ProductStory = {
-  eyebrow: string;
-  title: string;
-  body: string;
-  image: string;
-  alt: string;
-  icon: ElementType;
-  reverse?: boolean;
-};
 
 type IconProps = {
   size?: number;
   strokeWidth?: number;
   className?: string;
+};
+
+type KitItem = {
+  number: string;
+  title: string;
+  body: string;
+  image: string;
+  alt: string;
+  icon: ElementType;
+};
+
+type UseCase = {
+  title: string;
+  image?: string;
+  alt?: string;
+  icon?: ElementType;
+};
+
+type Benefit = {
+  title: string;
+  body: string;
+  icon: ElementType;
 };
 
 function ToiletIcon({ size = 24, strokeWidth = 2, className }: IconProps) {
@@ -60,317 +79,358 @@ function ToiletIcon({ size = 24, strokeWidth = 2, className }: IconProps) {
         strokeLinejoin="round"
         strokeWidth={strokeWidth}
       />
-      <path
-        d="M9 7h6M10 10h4"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeWidth={strokeWidth}
-      />
+      <path d="M9 7h6M10 10h4" stroke="currentColor" strokeLinecap="round" strokeWidth={strokeWidth} />
     </svg>
   );
 }
 
 const content = {
   en: {
-    nav: {
-      cta: "Get Started",
-      contact: "Contact Us",
-      business: "For Business",
-    },
+    logoLine: "Clean comfort, ready for every stay.",
     hero: {
-      title: "Clean Compact Ready",
-      description: "Everyone deserves to rest freely and live comfortably.",
+      title: "Clean comfort, ready for every stay.",
+      body: "Compact hygiene kits for hostels, shared bathrooms, and modern budget travel.",
+      primary: "Request a Free Trial",
+      secondary: "Explore Stay Kit",
     },
-    intro: {
-      eyebrow: "OUR PRODUCT",
-      productName: "Stay Kit",
-      title: "Everything You Need",
-      highlight: "All in One Kit",
-      body: "Thoughtfully designed essentials for a clean and comfortable journey.",
+    reveal: {
+      title: "Traveon Stay Kit.",
+      body: "A compact hygiene set designed for shared travel spaces.",
+      labels: ["Bath Slippers", "Compressed Bath Towel", "Toilet Seat Cover"],
     },
-    productStories: [
+    kit: [
       {
-        eyebrow: "ALL-IN-ONE KIT",
-        title: "Everything You Need",
-        body: "A compact Traveon handover kit for shared stays, short trips, and practical guest comfort.",
-        image: asset("/images/product/Pocket.webp"),
-        alt: "Traveon stay kit on a hostel bed",
-        icon: PackageCheck,
-      },
-      {
-        eyebrow: "CLEAN COMFORT",
-        title: "Soft travel slippers",
-        body: "Clean comfort for shared showers and quick arrivals.",
+        number: "01",
+        title: "Clean steps, even in shared bathrooms.",
+        body: "Soft travel slippers help guests move comfortably between beds, showers, and common areas.",
         image: asset("/images/product/Slipper.webp"),
-        alt: "Blue travel slippers outside a bathroom",
+        alt: "Blue travel slippers at a shared bathroom entrance",
         icon: ShowerHead,
-        reverse: true,
       },
       {
-        eyebrow: "LIGHT & READY",
-        title: "Compressed towel",
-        body: "Sealed, portable, and ready in seconds.",
+        number: "02",
+        title: "Small before use. Ready in seconds.",
+        body: "Sealed and portable, the compressed towel expands when needed and keeps packing light.",
         image: asset("/images/product/CompressedTowel.webp"),
-        alt: "Compressed towels beside clean white towels",
+        alt: "Compressed bath towel with folded towels",
         icon: Droplet,
       },
       {
-        eyebrow: "SAFE & HYGIENIC",
-        title: "Toilet seat cover",
-        body: "A clean barrier for shared bathrooms and peace of mind.",
+        number: "03",
+        title: "A simple barrier for shared facilities.",
+        body: "Designed for shared bathrooms, public restrooms, and budget travel environments.",
         image: asset("/images/product/ToiletCover.webp"),
-        alt: "Disposable toilet seat cover and box",
+        alt: "Disposable toilet seat cover in a shared bathroom",
         icon: ToiletIcon,
-        reverse: true,
       },
-    ] as ProductStory[],
+    ] as KitItem[],
     spaces: {
-      eyebrow: "DESIGNED FOR SHARED SPACES",
-      title: "where you can use our product for?",
+      title: "Designed for shared travel spaces.",
       items: [
         {
-          title: "Hostels",
-          image: asset("/images/environment/Beds.png"),
-          alt: "Hostel bunk beds with privacy curtains",
-          icon: Bed,
+          title: "Hotel Lobby",
+          image: asset("/images/environment/Hall.png"),
+          alt: "Warm wooden hostel lobby with reception and lounge seating",
         },
         {
           title: "Shared Bathrooms",
           image: asset("/images/environment/Bathroom.png"),
-          alt: "Modern shared bathroom sinks",
-          icon: ShowerHead,
+          alt: "Clean shared bathroom with showers, mirrors, and sinks",
         },
         {
-          title: "Common Areas",
-          image: asset("/images/environment/Hall.png"),
-          alt: "Warm hostel lounge and reception",
-          icon: Building2,
+          title: "Shared Beds",
+          image: asset("/images/environment/Beds.png"),
+          alt: "Shared hostel bunk beds with curtains and warm lighting",
         },
-      ],
+      ] as UseCase[],
     },
-    business: {
-      eyebrow: "FOR HOSTELS & HOTELS",
-      title: "A Simple Solution. Real Benefits.",
+    sales: {
+      businessTitle: "A. For Business Partners",
+      businessBody: "A low-risk way to improve guest comfort and create extra revenue.",
       benefits: [
+        { title: "No upfront cost", body: "Start with a free product placement trial.", icon: PackageCheck },
+        { title: "Easy to operate", body: "Compact kits, trusted supply, simple display.", icon: Settings2 },
         {
-          title: "Start with zero cost",
-          body: "No upfront investment. We provide everything.",
-          icon: PackageCheck,
-        },
-        {
-          title: "Easy to set up",
-          body: "Quick placement, minimal effort on your side.",
-          icon: Settings2,
-        },
-        {
-          title: "Earn from every stay",
-          body: "Generate extra income effortlessly.",
+          title: "Extra revenue per Stay Kit",
+          body: "Offer guests a practical hygiene upgrade when they need it most.",
           icon: TrendingUp,
         },
+      ] as Benefit[],
+      formTitle: "Interested in working with us?",
+      formBody: "Leave your information and we will get in touch.",
+      personTitle: "B. For Individual Travelers",
+      personBody: "Buy Traveon Stay Kit directly if you need it.",
+      personPoints: [
+        {
+          title: "High-quality essentials",
+          body: "Clean core items selected for shared-stay comfort.",
+        },
+        {
+          title: "Compact and easy to carry",
+          body: "Lightweight packaging fits easily into any travel bag.",
+        },
+        {
+          title: "Trusted by modern travelers",
+          body: "Simple hygiene support for hostels, short stays, and budget trips.",
+        },
       ],
-      stepsTitle: "How it works",
-      steps: ["Contact us", "Free product placement", "Earn from every sale"],
-      cta: "Request a Free Trial",
+      pickup: "Local pickup in Prague area 7 days a week.",
     },
     faq: {
-      title: "FAQ",
+      title: "Frequently Asked Questions",
       items: [
         {
-          q: "Is there any upfront payment for hostels?",
-          a: "No upfront payment is required for our business partners.",
+          q: "Do hostel partners need to pay upfront?",
+          a: "No. During the trial stage, we place the products at your hostel for free so you can test demand first.",
         },
         {
-          q: "How do we make money?",
-          a: "You generate revenue from each kit sold at your location.",
+          q: "What if the products do not sell?",
+          a: "During the trial stage, unsold products can be returned to us. Bulk order terms are agreed in advance.",
         },
         {
-          q: "What if the kits do not sell?",
-          a: "Returns are allowed. We want this to be risk-free for your team.",
+          q: "How do partners earn revenue?",
+          a: "For every kit sold at your location, your business keeps the agreed profit margin.",
         },
         {
-          q: "Can I buy your products in advance as an individual TO C customer?",
-          a: "Yes. We currently support tourists in the Prague area with free delivery and handover seven days a week.",
+          q: "Can Traveon deliver locally in Czech?",
+          a: "Yes. We currently support local delivery and handover across the Czech area.",
         },
       ],
-    },
-    trust: {
-      title: "Based in Prague. Built for Europe.",
-      body: "We are based in Prague and building a travel essentials business for Europe.",
-      logos: ["PLUS PRAGUE", "THE ROAD HOSTEL", "ONEFAM PRAGUE", "CZECH INN"],
     },
     about: {
-      eyebrow: "ABOUT US",
-      lines: [
-        "Clean. Compact. Ready.",
-        "We design simple travel hygiene kitsto enable shared, comfortable, and sustainable living.",
-        "Everyone deserves to rest freely and live comfortably.",
-        "Traveon delivers essential hygiene kitsfor travelers and modern accommodations.",
-        "Ideal for shared bathrooms, short stays, student travel,and budget-friendly trips.",
-        "Simple products.Immediate comfort.",
-      ],
+      title: "About Us",
+      body: "We design compact travel hygiene kits that make shared stays cleaner, easier, and more comfortable.",
+      badges: ["Based in Prague", "Local Support", "Quality Supply", "Sustainable"],
     },
     contact: {
-      title: "Start Your Journey with Traveon",
-      whatsapp: "WhatsApp",
-      email: "Email",
-      phone: "Phone",
+      title: "Let's Connect",
+      body: "We're here to help.",
+      phone: "+420 704 882 703",
+      email: "Sakura956904363@outlook.com",
+      location: "Prague, Czech Republic",
     },
   },
   zh: {
-    nav: {
-      cta: "开始使用",
-      contact: "联系我们",
-      business: "商务合作",
-    },
+    logoLine: "干净舒适，为每一次停留准备好。",
     hero: {
-      title: "干净 轻便 即刻可用",
-      description: "人人都值得自由休息，舒适生活。",
+      title: "干净舒适，为每一次停留准备好。",
+      body: "面向青旅、共享浴室与现代经济型旅行的轻便卫生套装。",
+      primary: "申请免费试用",
+      secondary: "了解 Stay Kit",
     },
-    intro: {
-      eyebrow: "我们的产品",
-      productName: "Stay Kit 旅居套装",
-      title: "旅程所需",
-      highlight: "一套齐备",
-      body: "为干净、舒适的旅程准备的轻便旅行用品。",
+    reveal: {
+      title: "Traveon Stay Kit.",
+      body: "为共享旅行空间设计的轻便卫生套装。",
+      labels: ["浴室拖鞋", "压缩浴巾", "一次性马桶垫"],
     },
-    productStories: [
+    kit: [
       {
-        eyebrow: "一套齐备",
-        title: "旅程所需",
-        body: "适合公共住宿、短途停留和客人入住交接的紧凑旅行卫生套装。",
-        image: asset("/images/product/Pocket.webp"),
-        alt: "Traveon 旅行套装放在青旅床铺上",
-        icon: PackageCheck,
-      },
-      {
-        eyebrow: "洁净舒适",
-        title: "轻便旅行拖鞋",
-        body: "适合公共浴室、淋浴和快速入住的洁净舒适体验。",
+        number: "01",
+        title: "即使在共享浴室，也能安心迈步。",
+        body: "柔软旅行拖鞋帮助住客在床位、淋浴间和公共区域之间舒适移动。",
         image: asset("/images/product/Slipper.webp"),
-        alt: "蓝色旅行拖鞋放在浴室门口",
+        alt: "共享浴室入口旁的蓝色旅行拖鞋",
         icon: ShowerHead,
-        reverse: true,
       },
       {
-        eyebrow: "轻便即用",
-        title: "压缩毛巾",
-        body: "独立密封，轻便易带，遇水即可展开。",
+        number: "02",
+        title: "使用前小巧，几秒即可展开。",
+        body: "独立密封、便于携带，压缩浴巾在需要时展开，让行李保持轻便。",
         image: asset("/images/product/CompressedTowel.webp"),
-        alt: "压缩毛巾和白色毛巾摆放在洗手台",
+        alt: "压缩浴巾与折叠浴巾",
         icon: Droplet,
       },
       {
-        eyebrow: "安心卫生",
-        title: "一次性马桶垫",
-        body: "为公共卫浴提供安心洁净的隔离保护。",
+        number: "03",
+        title: "为共享设施提供简单隔离。",
+        body: "适用于共享浴室、公共卫生间和预算旅行环境。",
         image: asset("/images/product/ToiletCover.webp"),
-        alt: "一次性马桶垫和包装盒",
+        alt: "共享卫生间内的一次性马桶垫",
         icon: ToiletIcon,
-        reverse: true,
       },
-    ] as ProductStory[],
+    ] as KitItem[],
     spaces: {
-      eyebrow: "专为共享空间设计",
-      title: "我们的产品适用于哪些场景？",
+      title: "专为共享旅行空间设计。",
       items: [
-        {
-          title: "青旅",
-          image: asset("/images/environment/Beds.png"),
-          alt: "带隐私帘的青旅床铺",
-          icon: Bed,
-        },
-        {
-          title: "公共浴室",
-          image: asset("/images/environment/Bathroom.png"),
-          alt: "现代公共浴室洗手台",
-          icon: ShowerHead,
-        },
-        {
-          title: "公共区域",
-          image: asset("/images/environment/Hall.png"),
-          alt: "温暖的青旅大厅和前台",
-          icon: Building2,
-        },
-      ],
+        { title: "青旅", icon: Bed },
+        { title: "共享浴室", icon: ShowerHead },
+        { title: "学生旅行", icon: GraduationCap },
+        { title: "经济型酒店", icon: Building2 },
+        { title: "短住场景", icon: Hotel },
+      ] as UseCase[],
     },
-    business: {
-      eyebrow: "面向青旅与酒店",
-      title: "简单合作，真实收益",
+    sales: {
+      businessTitle: "A. 商务合作伙伴",
+      businessBody: "低风险提升住客舒适度，同时创造额外收益。",
       benefits: [
-        {
-          title: "零成本开始",
-          body: "无需前期投入，我们提供完整产品。",
-          icon: PackageCheck,
-        },
-        {
-          title: "设置简单",
-          body: "快速摆放，减少您的运营负担。",
-          icon: Settings2,
-        },
-        {
-          title: "每次住宿都创造收益",
-          body: "轻松获得额外收入。",
-          icon: TrendingUp,
-        },
-      ],
-      stepsTitle: "合作流程",
-      steps: ["联系我们", "免费产品摆放", "从每次销售中获得收益"],
-      cta: "申请商务试用",
+        { title: "无需前期成本", body: "从免费产品摆放试用开始。", icon: PackageCheck },
+        { title: "运营简单", body: "套装小巧、供应稳定、陈列简单。", icon: Settings2 },
+        { title: "每套产品创造收益", body: "在住客最需要时提供实用卫生升级选择。", icon: TrendingUp },
+      ] as Benefit[],
+      formTitle: "有兴趣合作吗？",
+      formBody: "留下信息，我们会尽快联系你。",
+      personTitle: "B. 个人旅行者",
+      personBody: "如有需要，可直接购买 Traveon Stay Kit。",
+      personPoints: ["高品质旅行必需品", "小巧便携", "受到现代旅行者信赖"],
+      pickup: "布拉格地区支持 7 天本地取货。",
     },
     faq: {
-      title: "常见问题",
+      title: "Frequently Asked Questions",
       items: [
         {
-          q: "青旅或住宿方需要提前付款吗？",
-          a: "不需要。我们的商务合作伙伴无需支付前期费用。",
-        },
-        {
-          q: "住宿方如何获得收益？",
-          a: "每在您的场所售出一套产品，您都可以获得对应销售收益。",
+          q: "青旅合作伙伴需要提前付款吗？",
+          a: "不需要。试用阶段我们会免费放置产品，帮助你先测试市场需求。",
         },
         {
           q: "如果产品没有卖出去怎么办？",
-          a: "可以退回。我们希望合作对您的团队来说是低风险、易尝试的。",
+          a: "试用阶段未售出的产品可以退回给我们。批量订单条款会提前在合同中确认。",
         },
         {
-          q: "如果我是个人 TO C 用户，想要提前购买你们的产品可以吗？",
-          a: "可以。目前我们支持在布拉格地区旅行的游客一周七天免费配送与交易交付。",
+          q: "合作伙伴如何获得收益？",
+          a: "每售出一套 Stay Kit，你的业务会保留双方约定的利润空间。",
+        },
+        {
+          q: "Traveon 可以在捷克本地配送吗？",
+          a: "可以。我们目前支持捷克地区的本地配送和交接。",
         },
       ],
     },
-    trust: {
-      title: "立足布拉格，面向欧洲旅行。",
-      body: "我们立足布拉格，做面向欧洲的旅行生意。",
-      logos: ["PLUS 布拉格", "THE ROAD 青旅", "ONEFAM 布拉格", "CZECH INN"],
-    },
     about: {
-      eyebrow: "关于我们",
-      lines: [
-        "通过干净、轻便、即取即用的旅行卫生套装",
-        "搭建公共、舒适、可持续的居住空间关系",
-        "我们相信，人人都拥有 自由而舒适地休息并享受生活的权利。",
-        "Traveon 为游客、青旅和经济型住宿合作伙伴提供紧凑实用的旅行卫生用品。",
-        "我们专注于小而关键的旅行卫生用品，帮助客人在抵达后更安心地休息。套装适用于公共浴室、短租住宿、学生旅行和预算型旅行场景。",
-        "简单的产品",
-        "即刻的舒适",
-      ],
+      title: "About Us",
+      body: "我们设计轻便的旅行卫生套装，让共享住宿更干净、更简单、更舒适。",
+      badges: ["立足布拉格", "本地支持", "稳定供应", "可持续"],
     },
     contact: {
-      title: "开启你的 Traveon 旅程",
-      whatsapp: "WhatsApp",
-      email: "邮箱",
-      phone: "电话",
+      title: "Let's Connect",
+      body: "我们随时为你提供帮助。",
+      phone: "+420 704 882 703",
+      email: "Sakura956904363@outlook.com",
+      location: "Prague, Czech Republic",
     },
   },
 };
 
-const contact = {
-  phone: "+420 704 882 703",
-  email: "Sakura956904363@outlook.com",
+const useCaseScenes = [
+  {
+    title: "Hotel Lobby",
+    zhTitle: "酒店大堂",
+    image: asset("/images/environment/Hall.png"),
+    alt: "Warm wooden hostel lobby with reception and lounge seating",
+  },
+  {
+    title: "Shared Bathrooms",
+    zhTitle: "共享洗浴室",
+    image: asset("/images/environment/Bathroom.png"),
+    alt: "Clean shared bathroom with showers, mirrors, and sinks",
+  },
+  {
+    title: "Shared Beds",
+    zhTitle: "共享床铺",
+    image: asset("/images/environment/Beds.png"),
+    alt: "Shared hostel bunk beds with curtains and warm lighting",
+  },
+];
+
+const faqGroups = {
+  en: [
+    {
+      title: "For business partners",
+      items: [
+        {
+          q: "Do hostel partners need to pay upfront?",
+          a: "No. During the trial stage, we place the products at your hostel for free. You can test the market first, and all sales revenue during the trial will be kept by your business. After the trial is successful, we can move to bulk purchasing. The purchase price and selling price will be clearly stated in the contract.",
+        },
+        {
+          q: "What if the products do not sell?",
+          a: "During the trial stage, unsold products can be returned to us. We want the cooperation to be low-risk and easy to start. For bulk orders, the purchase quantity will be decided by each partner based on their own business needs. Overstock, shortage, and related inventory terms will be agreed in advance in the contract.",
+        },
+        {
+          q: "How do partners earn revenue?",
+          a: "For every kit sold at your location, your business keeps the agreed profit margin. Partners earn from every kit sold at their location.",
+        },
+        {
+          q: "Can Traveon deliver locally in Czech?",
+          a: "Yes. We currently support local delivery and handover in the whole Czech area.",
+        },
+      ],
+    },
+    {
+      title: "For travelers",
+      items: [
+        {
+          q: "Can individual travelers buy the kit?",
+          a: "Yes. We currently offer free product handover and delivery in the Prague area, seven days a week.",
+        },
+        {
+          q: "What is included in the Stay Kit?",
+          a: "The standard kit includes travel slippers, a compressed towel, and a disposable toilet seat cover.",
+        },
+      ],
+    },
+  ],
+  zh: [
+    {
+      title: "商务合作伙伴",
+      items: [
+        {
+          q: "青旅合作伙伴需要预先付款吗？",
+          a: "不需要。在试用阶段，我们会免费将产品放置在你的青旅。你可以先测试市场，试用期间的全部销售收入都将由你的业务保留。试用成功后，我们可以进入批量采购。采购价格和销售价格将会在合同中清楚写明。",
+        },
+        {
+          q: "如果产品没有卖出去怎么办？",
+          a: "在试用阶段，未售出的产品可以退还给我们。我们希望合作低风险、易开始。对于批量订单，采购数量将由每位合作伙伴根据自身业务需求决定。库存过剩、库存不足及相关库存条款将提前在合同中约定。",
+        },
+        {
+          q: "合作伙伴如何获得收入？",
+          a: "每售出一套产品，你的业务将保留双方约定的利润空间。合作伙伴通过其场地售出的每一套产品获得收入。",
+        },
+        {
+          q: "Traveon 可以在捷克本地配送吗？",
+          a: "可以。我们目前支持整个捷克地区的本地配送与交接。",
+        },
+      ],
+    },
+    {
+      title: "个人旅行者",
+      items: [
+        {
+          q: "个人旅行者可以购买套装吗？",
+          a: "可以。我们目前在布拉格地区提供免费产品交接和配送服务，每周七天均可。",
+        },
+        {
+          q: "Stay Kit 里包含什么？",
+          a: "标准套装包含旅行拖鞋、压缩浴巾和一次性马桶垫。",
+        },
+      ],
+    },
+  ],
+};
+
+const aboutUsCopy = {
+  zh: [
+    "通过干净、轻便、即取即用的旅行卫生套装",
+    "搭建公共、舒适、可持续的居住空间关系",
+    "我们相信，人人都拥有 自由而舒适地休息并享受生活的权利。",
+    "Traveon 为游客、青旅和经济型住宿合作伙伴提供紧凑实用的旅行卫生用品。",
+    "我们专注于小而关键的旅行卫生用品，帮助客人在抵达后更安心地休息。套装适用于公共浴室、短租住宿、学生旅行和预算型旅行场景。",
+    "简单的产品",
+    "即刻的舒适",
+  ],
+  en: [
+    "Clean. Compact. Ready.",
+    "We design simple travel hygiene kits\nto enable shared, comfortable, and sustainable living.",
+    "Everyone deserves to rest freely and live comfortably.",
+    "Traveon delivers essential hygiene kits\nfor travelers and modern accommodations.",
+    "Ideal for shared bathrooms, short stays, student travel,\nand budget-friendly trips.",
+    "Simple products.\nImmediate comfort.",
+  ],
 };
 
 export default function Home() {
   const [language, setLanguage] = useState<Language>("en");
+  const [heroVideoFailed, setHeroVideoFailed] = useState(false);
+  const t = content[language];
+
   const handleLanguageChange = (nextLanguage: Language) => {
     setLanguage(nextLanguage);
     if (typeof window !== "undefined") {
@@ -392,278 +452,277 @@ export default function Home() {
     }
   }, []);
 
-  const t = content[language as Language];
-
   return (
-    <main className="min-h-screen overflow-x-hidden bg-white text-traveon-950">
+    <main className="traveon-page">
       <Navbar language={language} onLanguageChange={handleLanguageChange} />
 
-      <section className="brand-landing flex min-h-screen items-center bg-white px-0 pb-28 pt-20">
-        <div className="mx-auto flex w-full max-w-6xl flex-col items-center px-6 text-center">
-          <Image
-            src={asset("/images/hero/Traveon.svg")}
+      <section className="brand-landing" aria-label="Traveon opening logo">
+        <div className="site-rail intro-card">
+          <LogoIntro
+            logoSrc={asset("/images/hero/Traveon.svg")}
+            videoSrc="/LOGO.mp4"
             alt="Traveon Travel Essentials"
-            width={920}
-            height={410}
-            priority
-            className="brand-showcase-logo h-auto w-full max-w-[760px]"
           />
-          <p className="mt-10 text-lg font-black tracking-normal text-traveon-950 md:text-2xl">
-            {t.hero.title}
-          </p>
-          <p className="mt-4 max-w-2xl text-base font-semibold leading-relaxed text-traveon-800 md:text-lg">
-            {t.hero.description}
-          </p>
-          <div className="mt-7 flex flex-wrap justify-center gap-5">
-            <Link href="#products" className="btn-secondary">
-              {t.nav.cta}
-            </Link>
+          <p>{t.logoLine}</p>
+          <div className="intro-actions">
             <Link href="#business" className="btn-primary">
-              {t.business.cta}
+              {t.hero.primary}
+            </Link>
+            <Link href="#products" className="btn-secondary">
+              {t.hero.secondary}
             </Link>
             <Link href="#contact" className="btn-secondary">
-              {t.nav.contact}
+              {language === "zh" ? "联系我" : "Contact Us"}
             </Link>
           </div>
+          <a className="down-button" href="#hero" aria-label="Scroll to hero">
+            <ChevronDown size={18} />
+          </a>
         </div>
       </section>
 
-      <section
-        id="hero"
-        className="hero-section relative min-h-[650px] overflow-hidden scroll-mt-24 md:min-h-[760px]"
-      >
-        <Image
-          src={asset("/images/hero/Hero-upscale-1.5x.webp")}
-          alt="Traveon travel essentials on a bed by an airplane window"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
-        />
+      <section id="hero" className="site-rail hero-panel scroll-mt-24">
+        {heroVideoFailed ? (
+          <Image
+            src={asset("/images/hero/Hero-upscale-1.5x.webp")}
+            alt="Traveon travel essentials on a bed by an airplane window"
+            width={2048}
+            height={921}
+            sizes="(max-width: 900px) 92vw, 880px"
+            className="hero-video-frame"
+            priority
+          />
+        ) : (
+          <video
+            aria-label="Traveon travel essentials on a bed by an airplane window"
+            autoPlay
+            className="hero-video-frame"
+            loop
+            muted
+            onError={() => setHeroVideoFailed(true)}
+            playsInline
+            poster={asset("/images/hero/Hero-upscale-1.5x.webp")}
+            preload="metadata"
+            src="/HERO.mp4"
+          />
+        )}
       </section>
 
-      <section id="products" className="section-shell scroll-mt-24 bg-white py-20 md:py-28">
-        <div className="mx-auto grid max-w-6xl items-center gap-12 px-6 md:grid-cols-[1.32fr_0.68fr]">
-          <div className="relative overflow-hidden rounded-[28px] shadow-soft">
-            <Image
-              src={asset("/images/product/Pocket.webp")}
-              alt="Complete Traveon stay kit with slippers towel and toilet seat cover"
-              width={1148}
-              height={646}
-              className="h-full min-h-[380px] w-full object-cover"
-            />
-          </div>
-          <div>
-            <p className="eyebrow">{t.intro.eyebrow}</p>
-            <p className="mt-3 text-3xl font-black leading-tight text-traveon-950 md:text-4xl">
-              {t.intro.productName}
-            </p>
-            <p className="mt-8 whitespace-nowrap text-[2.65rem] font-black leading-none text-blue-600 md:text-[3rem] lg:text-[3.35rem]">
-              {t.intro.highlight}
-            </p>
-            <h2 className="mt-5 whitespace-nowrap text-[2.15rem] font-black leading-tight text-traveon-950 md:text-[2.45rem] lg:text-[2.75rem]">
-              {t.intro.title}
-            </h2>
-            <p className="mt-6 max-w-md text-lg leading-relaxed text-slate-600 md:text-xl">
-              {t.intro.body}
-            </p>
-          </div>
+      <section id="products" className="site-rail product-reveal scroll-mt-24">
+        <div className="product-reveal__copy">
+          <h2>{t.reveal.title}</h2>
+          <p>{t.reveal.body}</p>
+        </div>
+        <div className="product-reveal__visual">
+          <Image
+            src={asset("/images/product/Pocket.webp")}
+            alt="Traveon travel essentials pocket bag placed on a hostel bed"
+            width={2048}
+            height={921}
+            sizes="(max-width: 900px) 92vw, 600px"
+            className="product-reveal__image"
+          />
         </div>
       </section>
 
-      <div className="mx-auto max-w-6xl px-6">
-        {t.productStories
-          .filter((story) => story.eyebrow !== "ALL-IN-ONE KIT")
-          .map((story, index) => {
-            const Icon = story.icon;
+      <section className="site-rail inside-kit" aria-label="Inside the Traveon Stay Kit">
+        {t.kit.map((item) => {
+          const Icon = item.icon;
+          return (
+            <article key={item.number} className="kit-card">
+              <div className="kit-card__copy">
+                <span className="kit-card__title-icon">
+                  <Icon size={18} />
+                </span>
+                <div className="kit-card__text">
+                  <h2>{item.title}</h2>
+                  <p>{item.body}</p>
+                </div>
+              </div>
+              <div className="kit-card__image">
+                <Image
+                  src={item.image}
+                  alt={item.alt}
+                  width={1120}
+                  height={630}
+                  sizes="(max-width: 900px) 92vw, 480px"
+                />
+              </div>
+            </article>
+          );
+        })}
+      </section>
+
+      <section id="use-cases" className="site-rail shared-spaces scroll-mt-24">
+        <h2>{t.spaces.title}</h2>
+        <div className="shared-spaces__row">
+          {useCaseScenes.map((scene, index) => {
+            const item = t.spaces.items[index];
             return (
-              <section
-                key={story.title}
-                className="product-band"
-              >
-                <div className="product-copy">
-                  <div className="icon-badge">
-                    <Icon size={30} strokeWidth={2.1} />
-                  </div>
-                  <p className="eyebrow mt-6">{story.eyebrow}</p>
-                  <h3>{story.title}</h3>
-                  <p>{story.body}</p>
-                </div>
-                <div className="product-image">
-                  <Image
-                    src={story.image}
-                    alt={story.alt}
-                    width={1120}
-                    height={630}
-                    className="h-full w-full object-cover"
-                  />
-                </div>
-              </section>
+              <article key={scene.title} className="shared-card">
+                <Image
+                  src={item?.image ?? scene.image}
+                  alt={item?.alt ?? scene.alt}
+                  width={1120}
+                  height={630}
+                  sizes="(max-width: 900px) 92vw, 280px"
+                />
+                <span>{language === "zh" ? scene.zhTitle : item?.title ?? scene.title}</span>
+              </article>
             );
           })}
-      </div>
+        </div>
+      </section>
 
-      <section id="use-cases" className="section-shell scroll-mt-24 bg-white py-20 md:py-24">
-        <div className="mx-auto max-w-6xl px-6 text-center">
-          <p className="eyebrow">{t.spaces.eyebrow}</p>
-          <h2 className="mt-3 text-4xl font-black leading-tight md:text-5xl">{t.spaces.title}</h2>
-          <div className="mt-10 grid gap-7 md:grid-cols-3">
-            {t.spaces.items.map((item) => {
-              const Icon = item.icon;
+      <section id="business" className="site-rail sale-section scroll-mt-24">
+        <article className="sale-card">
+          <h2>{t.sales.businessTitle}</h2>
+          <p className="sale-lead">{t.sales.businessBody}</p>
+          <div className="sale-benefits">
+            {t.sales.benefits.map((benefit) => (
+              <div key={benefit.title} className="sale-benefit">
+                <span className="icon-badge">
+                  <CheckCircle2 size={19} />
+                </span>
+                <div>
+                  <h3>{benefit.title}</h3>
+                  <p>{benefit.body}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <Link href="#faq" className="btn-secondary sale-link">
+            {language === "zh" ? "了解更多" : "Learn More"}
+          </Link>
+        </article>
+
+        <article className="sale-form-card">
+          <h2>{t.sales.formTitle}</h2>
+          <p>{t.sales.formBody}</p>
+          <form action={`mailto:${t.contact.email}`} className="contact-form" encType="text/plain" method="post">
+            <label>
+              {language === "zh" ? "姓名" : "Full Name"}
+              <input name="name" placeholder={language === "zh" ? "你的姓名" : "Your name"} type="text" />
+            </label>
+            <label>
+              {language === "zh" ? "邮箱" : "Email"}
+              <input name="email" placeholder={language === "zh" ? "你的邮箱" : "name@example.com"} type="email" />
+            </label>
+            <label>
+              {language === "zh" ? "电话号码" : "Phone Number"}
+              <input name="phone" placeholder="+420 123 456 789" type="tel" />
+            </label>
+            <label>
+              {language === "zh" ? "留言内容" : "Content"}
+              <textarea
+                name="message"
+                placeholder={language === "zh" ? "请告诉我们你的住宿场景或需求。" : "Tell us about your property or needs."}
+                rows={3}
+              />
+            </label>
+            <button className="btn-primary" type="submit">
+              {language === "zh" ? "提交" : "Submit"}
+            </button>
+          </form>
+        </article>
+
+        <article id="for-person" className="sale-card sale-person-card scroll-mt-24">
+          <h2>{t.sales.personTitle}</h2>
+          <p className="sale-lead">{t.sales.personBody}</p>
+          <div className="sale-benefits person-points">
+            {t.sales.personPoints.map((point) => {
+              const title = typeof point === "string" ? point : point.title;
+              const body = typeof point === "string" ? "" : point.body;
               return (
-                <article key={item.title} className="space-card">
-                  <div className="overflow-hidden rounded-[18px]">
-                    <Image
-                      src={item.image}
-                      alt={item.alt}
-                      width={640}
-                      height={360}
-                      className="h-48 w-full object-cover"
-                    />
+                <div key={title} className="sale-benefit person-benefit">
+                  <span className="icon-badge">
+                    <CheckCircle2 size={19} />
+                  </span>
+                  <div>
+                    <h3>{title}</h3>
+                    {body ? <p>{body}</p> : null}
                   </div>
-                  <h3 className="mt-5 flex items-center justify-center gap-3 text-xl font-black">
-                    <Icon size={24} className="text-blue-600" /> {item.title}
-                  </h3>
-                </article>
+                </div>
               );
             })}
           </div>
+          <a href={`mailto:${t.contact.email}`} className="btn-secondary sale-link">
+            {language === "zh" ? "立即购买" : "Buy Now"}
+          </a>
+          <p className="pickup-note">{t.sales.pickup}</p>
+        </article>
+      </section>
+
+      <section id="faq" className="site-rail faq-section scroll-mt-24">
+        <h2>{language === "zh" ? "常见问题" : t.faq.title}</h2>
+        <div className="faq-list">
+          {faqGroups[language].map((group) => (
+            <div key={group.title} className="faq-group">
+              <h3>{group.title}</h3>
+              {group.items.map((item) => (
+                <details key={item.q} className="faq-row">
+                  <summary>
+                    <span>{item.q}</span>
+                    <ChevronDown size={18} />
+                  </summary>
+                  <p>{item.a}</p>
+                </details>
+              ))}
+            </div>
+          ))}
         </div>
       </section>
 
-      <section id="business" className="scroll-mt-24 bg-blue-50/70 py-20 md:py-24">
-        <div className="mx-auto grid max-w-6xl gap-12 px-6 md:grid-cols-[1.2fr_0.8fr]">
-          <div>
-            <p className="eyebrow">{t.business.eyebrow}</p>
-            <h2 className="mt-3 max-w-md text-4xl font-black leading-tight md:text-5xl">
-              {t.business.title}
-            </h2>
-            <div className="mt-12 grid gap-8 md:grid-cols-3">
-              {t.business.benefits.map((benefit) => {
-                const Icon = benefit.icon;
-                return (
-                  <article key={benefit.title}>
-                    <div className="icon-badge">
-                      <Icon size={30} />
-                    </div>
-                    <h3 className="mt-5 text-xl font-black">{benefit.title}</h3>
-                    <p className="mt-2 leading-relaxed text-slate-600">{benefit.body}</p>
-                  </article>
-                );
-              })}
-            </div>
-          </div>
-          <div className="rounded-[24px] bg-white p-8 shadow-soft">
-            <h3 className="text-xl font-black">{t.business.stepsTitle}</h3>
-            <div className="mt-7 space-y-5">
-              {t.business.steps.map((step, index) => (
-                <div key={step} className="flex items-center gap-4">
-                  <span className="flex h-8 w-8 items-center justify-center rounded-full border border-traveon-200 text-sm font-black">
-                    {index + 1}
-                  </span>
-                  <p className="font-semibold text-slate-700">{step}</p>
-                </div>
+      <section id="about" className="site-rail about-v4 scroll-mt-24">
+        <div className="about-v4__mask">
+          <div className="about-v4__copy">
+            <h2>{language === "zh" ? "关于我们" : "About Us"}</h2>
+            <div className="about-v4__doc">
+              {aboutUsCopy[language].map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
-            <Link href="#contact" className="btn-primary mt-8 w-full justify-center">
-              {t.business.cta}
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" className="site-rail contact-v4 scroll-mt-24">
+        <div className="contact-v4__intro">
+          <h2>Start Your Journey with Traveon</h2>
+          <div className="contact-v4__actions">
+            <Link href="#business" className="contact-cta contact-cta--primary">
+              Get Started
+            </Link>
+            <Link href="#contact" className="contact-cta contact-cta--secondary">
+              Contact Us
             </Link>
           </div>
         </div>
-      </section>
-
-      <section id="faq" className="section-shell scroll-mt-24 bg-white py-20 md:py-24">
-        <div className="mx-auto max-w-5xl px-6">
-          <h2 className="text-center text-4xl font-black leading-tight md:text-5xl">{t.faq.title}</h2>
-          <div className="mt-12 space-y-5">
-            {t.faq.items.map((item) => (
-              <article key={item.q} className="rounded-[24px] bg-white p-8 shadow-soft md:p-10">
-                <h3 className="text-xl font-black text-traveon-950 md:text-2xl">{item.q}</h3>
-                <p className="mt-4 text-lg leading-relaxed text-slate-600">{item.a}</p>
-              </article>
-            ))}
-          </div>
+        <div className="contact-lines">
+          <a href={`https://wa.me/${t.contact.phone.replace(/\D/g, "")}`}>
+            <MessageCircle size={24} />
+            <span>
+              <strong>WhatsApp</strong>
+              {t.contact.phone}
+            </span>
+          </a>
+          <a href={`tel:${t.contact.phone.replace(/\s/g, "")}`}>
+            <Phone size={24} />
+            <span>
+              <strong>Phone</strong>
+              {t.contact.phone}
+            </span>
+          </a>
+          <a href={`mailto:${t.contact.email}`}>
+            <Mail size={24} />
+            <span>
+              <strong>Email</strong>
+              {t.contact.email}
+            </span>
+          </a>
         </div>
       </section>
 
-      <section className="bg-white py-16">
-        <div className="mx-auto max-w-6xl px-6 text-center">
-          <h2 className="text-4xl font-black">{t.trust.title}</h2>
-          <p className="mt-3 text-lg text-slate-600">{t.trust.body}</p>
-          <div className="mt-10 grid gap-8 text-xl font-black tracking-[0.22em] text-slate-400 md:grid-cols-4">
-            {t.trust.logos.map((logo) => (
-              <span key={logo}>{logo}</span>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="about" className="about-section relative scroll-mt-24 overflow-hidden py-24 md:py-32">
-        <Image
-          src={asset("/images/hero/Bottom.webp")}
-          alt="Airplane trail in a blue sky"
-          fill
-          sizes="100vw"
-          className="object-cover opacity-35"
-        />
-        <div className="absolute inset-0 bg-traveon-950/75" />
-        <div className="relative mx-auto max-w-6xl px-6">
-          <p className="about-eyebrow">{t.about.eyebrow}</p>
-          <div className="about-copy mt-10 max-w-5xl space-y-5 text-left">
-            {t.about.lines.map((line, index) => (
-              line === "Simple products.Immediate comfort." ? (
-                <div key={line} className="space-y-1">
-                  <p>Simple products.</p>
-                  <p>Immediate comfort.</p>
-                </div>
-              ) : (
-                <p key={line} className={index === 0 ? "whitespace-nowrap" : ""}>
-                  {line}
-                </p>
-              )
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="contact" className="contact-section scroll-mt-24 py-14">
-        <div className="mx-auto grid max-w-6xl gap-10 px-6 md:grid-cols-[0.92fr_0.72fr] md:items-center md:justify-between">
-          <div>
-            <h2 className="contact-title whitespace-nowrap">{t.contact.title}</h2>
-            <div className="mt-7 flex flex-wrap gap-4">
-              <Link href="#products" className="btn-light">
-                {t.nav.cta}
-              </Link>
-              <a href={`mailto:${contact.email}`} className="btn-dark-outline">
-                {t.nav.contact}
-              </a>
-            </div>
-          </div>
-          <div className="grid gap-5">
-            <a href={`https://wa.me/${contact.phone.replace(/\D/g, "")}`} className="contact-link">
-              <MessageCircle size={28} />
-              <span>
-                <strong>{t.contact.whatsapp}</strong>
-                {contact.phone}
-              </span>
-            </a>
-            <a href={`tel:${contact.phone.replace(/\s/g, "")}`} className="contact-link">
-              <Phone size={28} />
-              <span>
-                <strong>{t.contact.phone}</strong>
-                {contact.phone}
-              </span>
-            </a>
-            <a href={`mailto:${contact.email}`} className="contact-link">
-              <Mail size={28} />
-              <span>
-                <strong>{t.contact.email}</strong>
-                {contact.email}
-              </span>
-            </a>
-          </div>
-        </div>
-      </section>
     </main>
   );
 }
